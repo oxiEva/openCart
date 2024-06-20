@@ -47,9 +47,20 @@ If we want a Mochawesome report, when we  throw the command
 npx cypress run
 ```
 
+
 We see in our console: 
 ![Console report](./cypress/resources/consoleReport.png)
+
 
 and we'll get this report:
 ![Mochawesome report](./cypress/resources/mochawesomeReport.png)
 
+
+If we want an Allure report, we can throw the command 
+
+```sh
+npx allure serve allure-results/
+```
+
+and we'll get this report:
+![Allure report](./cypress/resources/allureReporting.png)
