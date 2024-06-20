@@ -64,3 +64,17 @@ npx allure serve allure-results/
 
 and we'll get this report:
 ![Allure report](./cypress/resources/allureReporting.png)
+
+
+
+➡️  Github actions
+---
+
+We are playing with some githubs actions
+- Regression Tests on Main 
+- Smoke Tests on PR 
+
+![Github actions](./cypress/resources/githubActions.png)
+
+and see the reports in the artifacts
+

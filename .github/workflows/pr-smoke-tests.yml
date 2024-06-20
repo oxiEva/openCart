@@ -1,0 +1,30 @@
+name: Smoke Tests on PR
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  smoke-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.5
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run regression tests
+        run: npm run e2e:smoke
+
+      - name: Generate test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            cypress/reports/
+            cypress/screenshots/ 
+  
