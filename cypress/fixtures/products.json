@@ -1,0 +1,19 @@
+{
+    "products": [
+      {
+        "name": "HTC Touch HD",
+        "image": "http://opencart.abstracta.us:80/image/cache/catalog/demo/htc_touch_hd_1-47x47.jpg",
+        "price": "$122.00",
+        "quantity": "1",
+        "subtotal": "$122.00"
+      },
+      {
+        "name": "iPhone",
+        "image": "http://opencart.abstracta.us:80/image/cache/catalog/demo/iphone_1-47x47.jpg",
+        "price": "$123.20",
+        "quantity": "1",
+        "subtotal": "$123.20"
+      }
+    ]
+  }
+  
