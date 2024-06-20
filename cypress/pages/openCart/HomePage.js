@@ -1,7 +1,6 @@
 class HomePage {
     elements = {
         logolink: () => cy.get('#logo'),
-
     }
 
     visit() {
