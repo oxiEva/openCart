@@ -133,6 +133,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode
 
 # yarn v2
 .yarn/cache
@@ -170,3 +171,7 @@ dist
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,cypressio
+
+
+#Allure folder
+allure-results/

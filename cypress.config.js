@@ -1,8 +1,9 @@
 const { defineConfig } = require("cypress");
+const { allureCypress } = require("allure-cypress/reporter");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild");
-const mochawesome = require('cypress-mochawesome-reporter/plugin');
+const mochawesome = require("cypress-mochawesome-reporter/plugin");
 
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
@@ -13,6 +14,9 @@ async function setupNodeEvents(on, config) {
     createBundler({
       plugins: [createEsbuildPlugin.default(config)],
     }),
+    allureCypress(on, {
+      resultsDir: "./allure-results",
+    })
   );
 
   // Mochawesome reporter setup

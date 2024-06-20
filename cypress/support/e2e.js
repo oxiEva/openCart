@@ -18,5 +18,7 @@ import './commands'
 
 import 'cypress-mochawesome-reporter/register';
 
+import 'allure-cypress';
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
