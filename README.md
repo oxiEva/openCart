@@ -25,3 +25,21 @@ All tests:
 ```sh
 npx cypress run
 ```
+
+
+📄 Reporting
+---
+
+
+If we want a Mochawesome report, when we  throw the command 
+
+```sh
+npx cypress run
+```
+
+We see in our console: 
+![Console report](./cypress/resources/consoleReport.png)
+
+and we'll get this report:
+![Mochawesome report](./cypress/resources/mochawesomeReport.png)
+
