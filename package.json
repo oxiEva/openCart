@@ -4,7 +4,9 @@
   "description": "Open cart automation project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e:smoke": "cypress run --env TAGS='@smoke'",
+    "e2e:regression": "cypress run --env TAGS='@regression'"
   },
   "keywords": [
     "automation",

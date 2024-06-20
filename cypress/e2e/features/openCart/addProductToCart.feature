@@ -1,3 +1,5 @@
+@regression @aut-3
+
 Feature: Add products to cart
 
   As a customer,

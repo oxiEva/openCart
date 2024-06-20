@@ -1,3 +1,5 @@
+@smoke @aut-5
+
 Feature: Checkout
 
   Scenario: Buy a product

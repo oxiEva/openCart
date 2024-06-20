@@ -26,6 +26,16 @@ All tests:
 npx cypress run
 ```
 
+Smoke: 
+```sh
+npm run e2e:smoke
+```
+
+Regression: 
+```sh
+npm run e2e:regression
+```
+
 
 📄 Reporting
 ---

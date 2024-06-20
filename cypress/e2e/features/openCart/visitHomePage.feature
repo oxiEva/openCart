@@ -1,3 +1,5 @@
+@regression
+
 Feature: Visit Home Page
 
   As a user,

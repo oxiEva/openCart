@@ -1,3 +1,5 @@
+@regression @aut-4
+
 Feature: View and Edit cart
 
   As a user,

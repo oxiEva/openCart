@@ -1,3 +1,5 @@
+@login @smoke
+
 Feature: Login account
 
   As a user,
