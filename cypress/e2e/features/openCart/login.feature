@@ -8,6 +8,6 @@ Feature: Login account
 
   Scenario: Login a user 
     Given the user is on the login page
-    When the user fills the login form with email "oxieva@gmail.cat" and password "oxieva"
+    When the user fills the login form with valid credentials
     And the user clicks the Login button
     Then the user should be redirect to his account
