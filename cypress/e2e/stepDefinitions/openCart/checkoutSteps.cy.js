@@ -4,99 +4,132 @@ import CartPage from '../../../pages/openCart/CartPage';
 import CheckoutPage from '../../../pages/openCart/CheckoutPage';
 import LoginPage from '../../../pages/openCart/LoginPage';
 
-Given('the user is on the login', () => {
-    cy.visit('/index.php?route=account/login');
-});
-
-When('the user fills login form with email {string} and password {string}', (email, password) => {
-    LoginPage.login(email, password);
-});
-
-When('the user clicks Login button', () => {
-    LoginPage.elements.loginButton().should('exist').and('be.visible').click();
-});
-
-Then('the user should be redirected to her account', () => {
-    cy.url().should('include', '/index.php?route=account/account');
-});
-
-Given('the user is on the phones page', () => {
+Given('the guest customer has a iPhone in the cart', () => {
     cy.visit('/index.php?route=product/category&path=24');
-});
-
-Given('the user has the following item to the cart:', (dataTable) => {
-    dataTable.rawTable.slice(1).forEach(([productName]) => {
-        StorePage.addToCart(productName);
-    });
-});
-
-When('the user clicks at button cart', () => {
+    StorePage.addToCart('iPhone');
     CartPage.openCartDropdown();
-});
-
-When('the user views cart', () => {
-    CartPage.elements.dropdown().should('be.visible');
-});
-
-When('the user clicks button view cart', () => {
     CartPage.viewCart();
-});
-
-Then('the user should be redirected to the checkout cart', () => {
     cy.url().should('include', '/index.php?route=checkout/cart');
 });
 
-When('the user clicks on the checkout button', () => {
+Given('the guest customer has the following items in the cart:', (dataTable) => {
+    cy.visit('/index.php?route=product/category&path=24');
+    dataTable.rawTable.slice(1).forEach(([productName]) => {
+        StorePage.addToCart(productName);
+    });
+    CartPage.openCartDropdown();
+    CartPage.viewCart();
+    cy.url().should('include', '/index.php?route=checkout/cart');
+});
+
+Given('the registered customer has the following items in the cart:', (dataTable) => {
+    cy.visit('/index.php?route=account/login');
+    LoginPage.login('oxieva@gmail.cat', 'oxieva');
+    LoginPage.elements.loginButton().should('exist').and('be.visible').click();
+    cy.url().should('include', '/index.php?route=account/account');
+
+    cy.visit('/index.php?route=product/category&path=24');
+    dataTable.rawTable.slice(1).forEach(([productName]) => {
+        StorePage.addToCart(productName);
+    });
+    CartPage.openCartDropdown();
+    CartPage.viewCart();
+    cy.url().should('include', '/index.php?route=checkout/cart');
+});
+
+When('the guest customer clicks on the checkout button', () => {
     CartPage.clickCheckoutButton();
 });
 
-Then('the user should be redirected to the checkout page', () => {
+When('the registered customer clicks on the checkout button', () => {
+    CartPage.clickCheckoutButton();
+});
+
+Then('the guest customer should be redirected to the checkout page', () => {
     cy.url().should('include', '/index.php?route=checkout/checkout');
 });
 
-Then('the user should choose Guest Checkout and click Continue', () => {
+Then('the guest customer should choose Guest Checkout and click Continue', () => {
     CheckoutPage.selectGuestCheckout();
 });
 
-Then('the user should fill the form billing details', () => {
+Then('the guest customer should fill the form billing details', () => {
     CheckoutPage.fillBillingDetails();
 });
 
-Then('the user should fill the form delivery method', () => {
+Then('the guest customer should fill the form delivery method', () => {
     CheckoutPage.fillDeliveryMethod();
 });
 
-Then('the user should fill the form payment method', () => {
+
+Then('the guest customer should fill the form payment method', () => {
     CheckoutPage.fillPaymentMethod();
 });
 
-Then('the user should be able to click Confirm order', () => {
+Then('the guest customer should be able to click Confirm order', () => {
     CheckoutPage.clickConfirmOrderButton();
 });
 
-Then('the user should be redirected to the Success page', () => {
+Then('the order subtotal should be {string}', (expectedSubtotal) => {
+    CheckoutPage.verifyOrderSubtotal(expectedSubtotal);
+});
+
+Then('the order total should be {string}', (expectedTotal) => {
+    CheckoutPage.verifyOrderTotal(expectedTotal);
+});
+
+Then('the flat shipping rate should be {string}', (expectedFlatShippingRate) => {
+    CheckoutPage.verifyFlatShippingRate(expectedFlatShippingRate);
+});
+
+Then('the order VAT should be {string}', (expectedVAT) => {
+    CheckoutPage.verifyOrderVAT(expectedVAT);
+});
+
+Then('the total should be the sum of subtotal, flat shipping rate, and VAT', () => {
+    CheckoutPage.verifyTotalCalculation();
+});
+
+Then('the guest customer should fill the form payment method without agreeing to terms and conditions', () => {
+    CheckoutPage.fillPaymentMethodWithoutAgreeing();
+});
+
+Then('the guest customer should see the warning message {string}', (expectedWarningMessage) => {
+    CheckoutPage.verifyWarningMessage(expectedWarningMessage);
+});
+
+Then('the guest customer should be redirected to the Success page with the message "Your order has been placed!"', () => {
     cy.url().should('include', '/index.php?route=checkout/success');
+    cy.contains('Your order has been placed!').should('be.visible');
 });
 
-Then('the user should check I want to use an existing address from billing details and click Continue', () => {
-    CheckoutPage.checkSameAddress();
+Then('the registered customer should be redirected to the checkout page', () => {
+    cy.url().should('include', '/index.php?route=checkout/checkout');
 });
 
-Then('the user should check I want to use an existing address from delivery details and click Continue', () => {
-    CheckoutPage.checkSameAddress();
+Then('the registered customer should see the form billing details with the checkbox "I want to use an existing address" checked and clicks Continue', () => {
+    CheckoutPage.checkExistingBillingAddress();
 });
 
-Then('the user should see checked the form delivery method and click Continue', () => {
+Then('the registered customer should see the form delivery details with the checkbox "I want to use an existing address" checked and clicks Continue', () => {
+    CheckoutPage.checkExistingDeliveryAddress();
+});
+
+Then('the registered customer should fill the form delivery method', () => {
     CheckoutPage.fillDeliveryMethod();
 });
 
-Then('the user should see checked Please select the preferred payment method to use on this order...', () => {
+Then('the registered customer should fill the form payment method', () => {
     CheckoutPage.fillPaymentMethod();
 });
 
-Then('click the checkbox of Terms and Conditions and Continue', () => {
-    CheckoutPage.agreeToTermsAndConditions();
-    cy.get('#button-payment-method').should('be.visible').click();
+Then('the registered customer should be able to click Confirm order', () => {
+    CheckoutPage.clickConfirmOrderButton();
+});
+
+Then('the registered customer should be redirected to the Success page with the message "Your order has been placed!"', () => {
+    cy.url().should('include', '/index.php?route=checkout/success');
+    cy.contains('Your order has been placed!').should('be.visible');
 });
 
 // Catch uncaught exceptions
