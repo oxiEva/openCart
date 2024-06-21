@@ -131,10 +131,3 @@ Then('the registered customer should be redirected to the Success page with the 
     cy.url().should('include', '/index.php?route=checkout/success');
     cy.contains('Your order has been placed!').should('be.visible');
 });
-
-// Catch uncaught exceptions
-Cypress.on('uncaught:exception', (err) => {
-    if (err.message.includes('pagespeed is not defined')) {
-        return false; // prevent Cypress from failing the test
-    }
-});

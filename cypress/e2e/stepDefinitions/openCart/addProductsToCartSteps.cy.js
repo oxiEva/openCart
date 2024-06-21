@@ -64,11 +64,6 @@ Then('the total price is the sum of the prices of the added products', () => {
         const cartPrice = parseFloat(priceText);
         const expectedTotalPrice = Object.values(productPrices).reduce((total, price) => total + price, 0);
         const expectedTotalPriceFormatted = parseFloat(expectedTotalPrice.toFixed(1));
-
-        // console.log('Original');
-        // console.log(cartPrice);
-        // console.log(`Original expectedTotalPrice`);
-        // console.log(expectedTotalPriceFormatted);
     
         expect(cartPrice).to.equal(expectedTotalPriceFormatted);   
     });

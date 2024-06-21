@@ -23,3 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('handleUncaughtException', () => {
+    Cypress.on('uncaught:exception', (err) => {
+        if (err.message.includes('pagespeed is not defined')) {
+            return false; // prevent Cypress from failing the test
+        }
+    });
+});

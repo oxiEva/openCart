@@ -78,10 +78,3 @@ Then('the total number of items and the total price of the cart should be displa
 Then('the customer should see {string}', (message) => {
     cy.get('#content > p').should('be.visible').and('contain.text',message);
 });
-
-// Catch uncaught exceptions
-Cypress.on('uncaught:exception', (err) => {
-    if (err.message.includes('pagespeed is not defined')) {
-        return false; // prevent Cypress from failing the test
-    }
-});
